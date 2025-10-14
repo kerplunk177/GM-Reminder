@@ -1,0 +1,17 @@
+{
+  "id": "gm-reminder",
+  "title": "GM Reminder",
+  "description": "A module to provide contextual reminders to the GM.",
+  "version": "1.0.0",
+  "authors": ["Sean Wright"],
+  "esmodules": [
+    "main.js"
+  ],
+  "styles": [
+    "styles/main.css"
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  }
+}
