@@ -37,9 +37,8 @@ This is the heart of the module where you set up all your information.
 2.  **Managing Reminders**:
     * **Create Categories**: Type a name in the "New Category Name" box and click "Add Category."
     * **Add Reminders**: Click the "Add Reminder" button under any category to add a new line.
-    * **Link Skills**: In the "Linked Skills" box for a category, type the lowercase slugs of skills you want to link, separated by commas (e.g., `perception, thievery, stealth`).
+    * **Link Skills**: In the "Linked Skills" box for a category, type the lowercase names of skills you want to link, separated by commas (e.g., `perception, thievery, stealth`).
     * **Link Players**: Next to any individual reminder, use the dropdown menu to assign it to a specific Player Character. Leave it as "General" if it applies to everyone.
-    * **Use Rich Text**: The reminder text fields support drag-and-drop for journal entries, items, or feats to automatically create clickable `@UUID` links.
 
 ### Automated Skill Triggers (PF2e Only)
 
