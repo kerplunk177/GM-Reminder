@@ -1,0 +1,63 @@
+<form autocomplete="off">
+    <div class="reminder-categories">
+        {{#each reminders as |categoryData categoryKey|}}
+        <div class="category-section">
+            <header class="category-header">
+                <h3>{{categoryKey}}</h3>
+                <div>
+                    <button type="button" class="whisper-btn" data-category="{{categoryKey}}" title="Whisper reminders to chat">
+                        <i class="fas fa-comment-dots"></i>
+                    </button>
+                    <button type="button" class="delete-category-btn" data-category="{{categoryKey}}" title="Delete Category">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="form-group">
+                <label>Linked Skills (comma-separated)</label>
+                <div class="form-fields">
+                    <input type="text" name="{{categoryKey}}.linkedSkills" value="{{categoryData.linkedSkills}}" placeholder="e.g., perception, thievery">
+                </div>
+            </div>
+
+            <ol class="reminder-list">
+                {{#each categoryData.reminders as |reminder index|}}
+                <li>
+                    <input type="text" name="{{categoryKey}}.reminders.{{index}}.text" value="{{reminder.text}}" class="reminder-text-input"/>
+                    
+                    <select name="{{categoryKey}}.reminders.{{index}}.actorId">
+                        <option value="">General</option>
+                        {{#each ../../playerActors as |actor|}}
+                        <option value="{{actor.id}}" {{#if (eq reminder.actorId actor.id)}}selected{{/if}}>{{actor.name}}</option>
+                        {{/each}}
+                    </select>
+
+                    <button type="button" class="delete-reminder-btn" data-category="{{categoryKey}}" data-index="{{index}}" title="Delete Reminder">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </li>
+                {{/each}}
+            </ol>
+            <button type="button" class="add-reminder-btn" data-category="{{categoryKey}}">
+                <i class="fas fa-plus"></i> Add Reminder
+            </button>
+        </div>
+        {{/each}}
+    </div>
+
+    <hr>
+    
+    <div class="new-category-section">
+        <input type="text" id="new-category-name" placeholder="New Category Name"/>
+        <button type="button" class="add-category-btn">
+            <i class="fas fa-plus"></i> Add Category
+        </button>
+    </div>
+
+    <footer class="sheet-footer">
+        <button type="submit">
+            <i class="fas fa-save"></i> Save Changes
+        </button>
+    </footer>
+</form>
