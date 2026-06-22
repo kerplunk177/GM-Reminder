@@ -1,0 +1,72 @@
+<div class="gm-reminder-container">
+    <div class="reminder-categories">
+        {{#each reminders as |categoryData categoryKey|}}
+        <section class="category-card">
+            <header class="category-header">
+                <h3 class="category-title">{{categoryKey}}</h3>
+                <div class="category-controls">
+                    <button type="button" class="icon-btn" data-action="whisperCategory" data-category="{{categoryKey}}" data-tooltip="Whisper reminders">
+                        <i class="fas fa-comment-dots"></i>
+                    </button>
+                    <button type="button" class="icon-btn danger" data-action="deleteCategory" data-category="{{categoryKey}}" data-tooltip="Delete Category">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="form-group slim">
+                <label>Linked Skills</label>
+                <input type="text" name="{{categoryKey}}.linkedSkills" value="{{categoryData.linkedSkills}}" placeholder="perception, thievery">
+            </div>
+
+            <ul class="reminder-list">
+                {{#each categoryData.reminders as |reminder index|}}
+                <!-- Added data attributes here for the drop handler -->
+                <li class="reminder-row" data-category="{{categoryKey}}" data-index="{{index}}" style="flex-wrap: wrap;">
+    <!-- Top Row: Main Item and Actor -->
+    <div style="display: flex; width: 100%; align-items: center; gap: 0.5rem;">
+        <span class="uuid-indicator" data-tooltip="{{#if reminder.uuid}}Linked to: {{reminder.uuid}}{{else}}Drop feat here{{/if}}">
+            <i class="fas {{#if reminder.uuid}}fa-link{{else}}fa-bullseye{{/if}}"></i>
+        </span>
+
+        <input type="text" name="{{categoryKey}}.reminders.{{index}}.text" value="{{reminder.text}}" class="reminder-input" placeholder="What to remember..."/>
+        
+        <div class="actor-select-group">
+            <img class="actor-avatar" src="{{#if reminder.actorImg}}{{reminder.actorImg}}{{else}}icons/svg/mystery-man.svg{{/if}}" alt="Actor Image">
+            <select name="{{categoryKey}}.reminders.{{index}}.actorId" class="actor-select">
+                <option value="">All Players</option>
+                {{#each ../../playerActors as |actor|}}
+                <option value="{{actor.id}}" {{#if (eq reminder.actorId actor.id)}}selected{{/if}}>{{actor.name}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <button type="button" class="icon-btn danger" data-action="deleteReminder" data-category="{{categoryKey}}" data-index="{{index}}" data-tooltip="Delete Reminder">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <!-- Bottom Row: Quick GM Note -->
+    <div style="width: 100%; padding-left: 28px; margin-top: 4px;">
+        <input type="text" name="{{categoryKey}}.reminders.{{index}}.notes" value="{{reminder.notes}}" class="reminder-input" placeholder="Quick GM note (e.g., +1 circumstance bonus to Make an Impression)..." style="font-size: 0.85rem; font-style: italic; opacity: 0.7; border: 1px dashed var(--color-border-light-2); background: transparent;"/>
+    </div>
+</li>
+                {{/each}}
+            </ul>
+            
+            <button type="button" class="add-btn" data-action="addReminder" data-category="{{categoryKey}}">
+                <i class="fas fa-plus"></i> Add Reminder
+            </button>
+        </section>
+        {{/each}}
+    </div>
+
+    <hr class="premium-divider">
+    
+    <div class="new-category-bar">
+        <input type="text" id="new-category-name" placeholder="Name a new category..."/>
+        <button type="button" class="primary-btn" data-action="addCategory">
+            <i class="fas fa-folder-plus"></i> Create
+        </button>
+    </div>
+</div>
