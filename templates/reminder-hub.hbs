@@ -1,0 +1,54 @@
+<div class="gm-reminder-hub-container">
+    <header class="hub-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-light-2); padding-bottom: 10px; margin-bottom: 15px;">
+        <h2 style="margin: 0;">Session Overview</h2>
+        <button type="button" class="primary-btn" data-action="openEditor" style="width: auto; padding: 0 10px;">
+            <i class="fas fa-cog"></i> Edit Reminders
+        </button>
+    </header>
+
+    <div class="hub-content">
+        {{#if hasReminders}}
+            {{#each categories as |category|}}
+                <div class="hub-category-card" style="margin-bottom: 15px; border: 1px solid var(--color-border-dark); padding: 10px; border-radius: 5px; background: rgba(0,0,0,0.2);">
+                    
+                    <h3 style="margin-top: 0; border-bottom: 1px solid var(--color-border-light-1); padding-bottom: 5px; display: flex; justify-content: space-between; align-items: baseline;">
+                        <span>{{category.name}}</span>
+                        {{#if category.linkedSkills}}
+                            <span style="font-size: 0.8em; color: var(--color-text-light-5); font-weight: normal;">
+                                Triggers: {{category.linkedSkills}}
+                            </span>
+                        {{/if}}
+                    </h3>
+
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        {{#each category.reminders as |reminder|}}
+                            <li {{#if reminder.uuid}}data-action="openItemSheet" data-uuid="{{reminder.uuid}}" title="Click to open item sheet"{{/if}} 
+                                style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding: 8px; background: rgba(255,255,255,0.05); border-radius: 3px; border-left: 3px solid var(--color-primary-3); {{#if reminder.uuid}}cursor: pointer; transition: background 0.2s;{{/if}}"
+                                onmouseover="this.style.background='{{#if reminder.uuid}}rgba(255,255,255,0.1){{else}}rgba(255,255,255,0.05){{/if}}';" 
+                                onmouseout="this.style.background='rgba(255,255,255,0.05)';">
+                                
+                                <img src="{{reminder.actorImg}}" title="{{reminder.actorName}}" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--color-border-dark); object-fit: cover; background: #000;">
+                                
+                                <div style="flex-grow: 1;">
+                                    <strong style="display: block; font-size: 0.9em; color: var(--color-text-light-2);">
+                                        {{reminder.actorName}}
+                                    </strong>
+                                    <span style="font-size: 1em;">
+                                        {{#if reminder.uuid}}
+                                            <i class="fas fa-link" style="font-size: 0.8em; color: var(--color-primary-3); margin-right: 5px;" title="Linked Data"></i>
+                                        {{/if}}
+                                        {{reminder.text}}
+                                    </span>
+                                </div>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            {{/each}}
+        {{else}}
+            <p style="text-align: center; color: var(--color-text-light-5); font-style: italic; margin-top: 2rem;">
+                {{welcomeMessage}}
+            </p>
+        {{/if}}
+    </div>
+</div>
